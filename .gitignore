@@ -1,0 +1,14 @@
+
+.cproject
+
+.project
+
+*.plist
+
+Intermediate-llvm/
+
+.settings/
+
+Debug/
+
+GUI/
