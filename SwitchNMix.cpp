@@ -22,6 +22,24 @@ void SwitchNMix::write(const port_t port,float32 *data) {
 	JBox_SetDSPBufferData(refL, 0, BUFFER_SIZE,data);
 }
 
+IOPair::Mode SwitchNMix::modeIn(const port_t portL,const port_t portR) {
+	auto l = toBool(JBox_LoadMOMPropertyByTag(portL,kJBox_AudioInputConnected));
+	auto r = toBool(JBox_LoadMOMPropertyByTag(portR,kJBox_AudioInputConnected));
+
+	if(r) return IOPair::Mode::STEREO;
+	else if(l) return IOPair::Mode::MONO;
+	else return IOPair::Mode::SILENT;
+}
+
+IOPair::Mode SwitchNMix::modeOut(const port_t portL,const port_t portR) {
+	auto l = toBool(JBox_LoadMOMPropertyByTag(portL,kJBox_AudioOutputConnected));
+	auto r = toBool(JBox_LoadMOMPropertyByTag(portR,kJBox_AudioOutputConnected));
+
+	if(r) return IOPair::Mode::STEREO;
+	else if(l) return IOPair::Mode::MONO;
+	else return IOPair::Mode::SILENT;
+}
+
 void portName(char *tmp,const char channel,const uint32 N,const char *baseName) {
 			char ext[3];
 
@@ -42,7 +60,7 @@ port_t getPort(const char channel,const uint32 N,const bool in) {
 
 
 
-SwitchNMix::SwitchNMix() : RackExtension(),
+SwitchNMix::SwitchNMix() : RackExtension(), inMode(IOPair::Mode::SILENT), outMode(IOPair::Mode::SILENT),
 				carryInL(IOPair::BUFFER_SIZE,0), carryInR(IOPair::BUFFER_SIZE,0),
 		carryOutL(IOPair::BUFFER_SIZE,0), carryOutR(IOPair::BUFFER_SIZE,0),
 		tempL(IOPair::BUFFER_SIZE,0), tempR(IOPair::BUFFER_SIZE,0){
@@ -50,21 +68,29 @@ SwitchNMix::SwitchNMix() : RackExtension(),
 	bypassed = new bool[NUM_PORTS];
 	factor = new float32[NUM_PORTS];
 	kind = new Block::Kind[NUM_PORTS];
+	first = new bool[NUM_PORTS];
 
 	insL = new port_t[NUM_PORTS];
 	insR = new port_t[NUM_PORTS];
 	outsL = new port_t[NUM_PORTS];
 	outsR = new port_t[NUM_PORTS];
 
+	insMode = new IOPair::Mode[NUM_PORTS];
+	outsMode = new IOPair::Mode[NUM_PORTS];
+
 	for(auto n=0;n<NUM_PORTS;n++) {
 		bypassed[n]=false;
 		factor[n]=1.0;
 		kind[n]=Block::Kind::SERIAL;
+		first[n]=(n==0);
 
 		insL[n] = getPort('L',n+1,true);
 		insR[n] = getPort('R',n+1,true);
 		outsL[n] = getPort('L',n+1,false);
 		outsR[n] = getPort('R',n+1,false);
+
+		insMode[n] = IOPair::Mode::SILENT;
+		outsMode[n] = IOPair::Mode::SILENT;
 	}
 
 	inL = getPort('L',0,true);
@@ -83,6 +109,9 @@ SwitchNMix::~SwitchNMix() {
 	delete [] insR;
 	delete [] outsL;
 	delete [] outsR;
+
+	delete [] insMode;
+	delete [] outsMode;
 }
 
 bool didConnect(TJBox_Value value) {
@@ -101,6 +130,26 @@ void SwitchNMix::reset() {
 	carryInR.assign(IOPair::BUFFER_SIZE,0);
 	carryOutL.assign(IOPair::BUFFER_SIZE,0);
 	carryOutR.assign(IOPair::BUFFER_SIZE,0);
+	shouldCheck=true;
+}
+
+void SwitchNMix::checkConnections() {
+	inMode = modeIn(inL,inR);
+	outMode = modeOut(outL,outR);
+
+	for(auto i=0;i<NUM_PORTS;i++) {
+		insMode[i]=modeIn(insL[i],insR[i]);
+		outsMode[i]=modeOut(outsL[i],outsR[i]);
+	}
+}
+
+void SwitchNMix::recalculate() {
+	first[0]=true;
+	for(auto n=1;n<N_PORTS;n++) {
+		auto diff=kind[n]!=kind[n-1];
+		if(bypassed[n]) first[n]=first[n-1]^diff;
+		else first[n]=diff;
+	}
 }
 
 
@@ -112,15 +161,11 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 			break; }
 	case kJBox_AudioInputConnected: {
 		trace("**** Audio In  event");
-		bool value = didConnect(diff.fCurrentValue);
-		if(value) trace("Connected");
-		else trace("Disconnected");
+		shouldCheck=true;
 		break; }
 	case kJBox_AudioOutputConnected: {
 		trace("**** Audio Out  event");
-		bool value = didConnect(diff.fCurrentValue);
-		if(value) trace("Connected");
-		else trace("Disconnected");
+		shouldCheck=true;
 		break; }
 	case Tags::GAIN: {
 		trace("Gain change");
@@ -128,13 +173,13 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		trace("Amplitude is ^0",gain);
 		break; }
 	default:
-		trace("ANOther event ^0",tag);
 		if(tag>Tags::CONNECT) {
 			trace("CONNECT");
 			auto offset=tag-Tags::CONNECT;
 			if(offset>0 && offset<=N_PORTS) {
 				auto b = toBool(diff.fCurrentValue);
 				kind[offset-1] = b ? Block::Kind::SERIAL : Block::Kind::PARALLEL;
+				shouldRecalculate=true;
 			}
 		}
 		else if(tag>Tags::BYPASS) {
@@ -143,6 +188,7 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 			if(offset>0 && offset<=N_PORTS) {
 				bypassed[offset-1]=toBool(diff.fCurrentValue);
 			}
+			shouldRecalculate=true;
 		}
 		else if(tag>Tags::DRY_WET) {
 			trace("DRY/WET");
@@ -151,6 +197,9 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 				factor[offset-1]=toFloat(diff.fCurrentValue);
 				trace("DRY/WET ^0 is ^1",offset-1,factor[offset-1]);
 			}
+		}
+		else {
+			trace("Another event ^0",tag);
 		}
 		break;
 	}
@@ -183,21 +232,61 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 
 
 void SwitchNMix::process() {
+	if(shouldCheck) {
+		shouldCheck=false;
+		checkConnections();
+	}
+	if(shouldRecalculate) {
+		shouldRecalculate=false;
+		recalculate();
+	}
 	read(inL,carryInL.data());
-		read(inR,carryInR.data());
+	read(inR,carryInR.data());
+
 		for(auto i=0;i<N_PORTS;i++) {
+			bool isSerial = kind[i]==Block::Kind::SERIAL;
+			bool isFirst = first[i];
 			if(!bypassed[i]) {
+				// transition actions
+				// transitions can only occur at index 1 et seq
+				if(i>0 && isFirst && isSerial) {
+					std::copy(carryOutL.begin(),carryOutL.end(),carryInL.begin());
+					std::copy(carryOutR.begin(),carryOutR.end(),carryInR.begin());
+				}
+				// do the write
 				write(outsL[i],carryInL.data());
 				write(outsR[i],carryInR.data());
-
+				// read into temp buffer
 				read(insL[i],tempL.data());
 				read(insR[i],tempR.data());
-				for(auto n=0;n<IOPair::BUFFER_SIZE;n++) {
-					carryInL[n]=tempL[n]*factor[i];
-					carryInR[n]=tempR[n]*factor[i];
+
+				auto fac=factor[i];
+				if(isSerial) { // serial case
+					for(auto n=0;n<IOPair::BUFFER_SIZE;n++) {
+						carryInL[n]=tempL[n]*fac;
+						carryInR[n]=tempR[n]*fac;
+						// copy to output
+						std::copy(carryInL.begin(),carryInL.end(),carryOutL.begin());
+						std::copy(carryInR.begin(),carryInR.end(),carryOutR.begin());
+					}
+				}
+				else { // parallel case
+					if(isFirst) {
+						for(auto n=0;n<IOPair::BUFFER_SIZE;n++) {
+							carryOutL[n]=tempL[n]*fac;
+							carryOutR[n]=tempR[n]*fac;
+						}
+					}
+					else {
+						for(auto n=0;n<IOPair::BUFFER_SIZE;n++) {
+							carryOutL[n]+=tempL[n]*fac;
+							carryOutR[n]+=tempR[n]*fac;
+						}
+					}
 				}
 			}
 		}
+		// the final write
 		write(outL,carryInL.data());
 		write(outR,carryInR.data());
 }

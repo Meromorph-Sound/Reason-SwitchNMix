@@ -36,12 +36,19 @@ private:
 	port_t inL, inR;
 	port_t outL, outR;
 
+	IOPair::Mode inMode;
+	IOPair::Mode outMode;
+
 	bool *bypassed;
 	float32 *factor;
 	Block::Kind *kind;
+	bool *first;
 
 	port_t *insL, *insR;
 	port_t *outsL, *outsR;
+
+	IOPair::Mode *insMode;
+	IOPair::Mode *outsMode;
 
 	std::vector<float32> carryInL, carryInR;
 	std::vector<float32> carryOutL, carryOutR;
@@ -49,11 +56,18 @@ private:
 
 
 	float32 gain=1;
+	bool shouldCheck=true;
+	bool shouldRecalculate=true;
 
 	static uint32 read(const port_t,float32 *);
 	static void write(const port_t,float32 *);
 
+	static IOPair::Mode modeIn(const port_t,const port_t);
+	static IOPair::Mode modeOut(const port_t,const port_t);
+
 	void process(const uint32 N);
+	void checkConnections();
+	void recalculate();
 
 
 
