@@ -10,8 +10,6 @@
 
 #include "base.hpp"
 #include "RackExtension.hpp"
-#include "IOPair.hpp"
-#include "Block.hpp"
 #include <memory>
 
 namespace meromorph {
@@ -29,26 +27,46 @@ enum Tags : uint32 {
 
 using port_t = TJBox_ObjectRef;
 
+
+
 class SwitchNMix: public RackExtension {
 private:
 	static const inline uint32 NUM_PORTS = 4;
+	const static uint32 BUFFER_SIZE = 64;
+
+	static const uint32 IN_BUFFER = kJBox_AudioInputBuffer;
+	static const uint32 OUT_BUFFER = kJBox_AudioOutputBuffer;
+	static const uint32 IN_CONN = kJBox_AudioInputConnected;
+	static const uint32 OUT_CONN = kJBox_AudioOutputConnected;
+
+	enum Kind {
+			SERIAL,
+			PARALLEL,
+			INITIAL
+		};
+
+	enum Mode {
+				SILENT,
+				MONO,
+				STEREO
+			};
 
 	port_t inL, inR;
 	port_t outL, outR;
 
-	IOPair::Mode inMode;
-	IOPair::Mode outMode;
+	Mode inMode;
+	Mode outMode;
 
 	bool *bypassed;
 	float32 *factor;
-	Block::Kind *kind;
+	Kind *kind;
 	bool *first;
 
 	port_t *insL, *insR;
 	port_t *outsL, *outsR;
 
-	IOPair::Mode *insMode;
-	IOPair::Mode *outsMode;
+	Mode *insMode;
+	Mode *outsMode;
 
 	std::vector<float32> carryInL, carryInR;
 	std::vector<float32> carryOutL, carryOutR;
@@ -62,8 +80,8 @@ private:
 	static uint32 read(const port_t,float32 *);
 	static void write(const port_t,float32 *);
 
-	static IOPair::Mode modeIn(const port_t,const port_t);
-	static IOPair::Mode modeOut(const port_t,const port_t);
+	static Mode modeIn(const port_t,const port_t);
+	static Mode modeOut(const port_t,const port_t);
 
 	void process(const uint32 N);
 	void checkConnections();

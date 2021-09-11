@@ -54,7 +54,18 @@ void trace(const char *tmpl,const float32 value1,const float32 value2) {
 
 
  bool toBool(const TJBox_Value diff) {
-	return static_cast<float32>(JBox_GetNumber(diff))>0;
+	 auto t=JBox_GetType(diff);
+	 switch(t) {
+	 case kJBox_Number:
+		 return static_cast<float32>(JBox_GetNumber(diff))>0;
+		 break;
+	 case kJBox_Boolean:
+		 return JBox_GetBoolean(diff)>0;
+		 break;
+	 default:
+		 return false;
+		 break;
+	 }
 }
  int32 toInt(const TJBox_Value diff) {
 	return static_cast<int32>(static_cast<float32>(JBox_GetNumber(diff)));

@@ -11,43 +11,37 @@ namespace meromorph {
 namespace switchnmix {
 
 uint32 SwitchNMix::read(const port_t port,float32 *data) {
-	auto ref = JBox_LoadMOMPropertyByTag(port, kJBox_AudioInputBuffer);
+	auto ref = JBox_LoadMOMPropertyByTag(port, IN_BUFFER);
 	auto length = std::min<int64>(JBox_GetDSPBufferInfo(ref).fSampleCount,BUFFER_SIZE);
 	if(length>0) JBox_GetDSPBufferData(ref, 0, length, data);
 	return static_cast<int32>(length);
 }
 
 void SwitchNMix::write(const port_t port,float32 *data) {
-	auto refL = JBox_LoadMOMPropertyByTag(port, kJBox_AudioOutputBuffer);
+	auto refL = JBox_LoadMOMPropertyByTag(port, OUT_BUFFER);
 	JBox_SetDSPBufferData(refL, 0, BUFFER_SIZE,data);
 }
 
-IOPair::Mode SwitchNMix::modeIn(const port_t portL,const port_t portR) {
-	auto l = toBool(JBox_LoadMOMPropertyByTag(portL,kJBox_AudioInputConnected));
-	auto r = toBool(JBox_LoadMOMPropertyByTag(portR,kJBox_AudioInputConnected));
-
-	if(r) return IOPair::Mode::STEREO;
-	else if(l) return IOPair::Mode::MONO;
-	else return IOPair::Mode::SILENT;
+SwitchNMix::Mode SwitchNMix::modeIn(const port_t portL,const port_t portR) {
+	auto l=toBool(JBox_LoadMOMPropertyByTag(portL,IN_CONN));
+	auto r=toBool(JBox_LoadMOMPropertyByTag(portR,IN_CONN));
+	return r ? STEREO : (l ? MONO : SILENT);
 }
 
-IOPair::Mode SwitchNMix::modeOut(const port_t portL,const port_t portR) {
-	auto l = toBool(JBox_LoadMOMPropertyByTag(portL,kJBox_AudioOutputConnected));
-	auto r = toBool(JBox_LoadMOMPropertyByTag(portR,kJBox_AudioOutputConnected));
-
-	if(r) return IOPair::Mode::STEREO;
-	else if(l) return IOPair::Mode::MONO;
-	else return IOPair::Mode::SILENT;
+SwitchNMix::Mode SwitchNMix::modeOut(const port_t portL,const port_t portR) {
+	auto l = toBool(JBox_LoadMOMPropertyByTag(portL,OUT_CONN));
+	auto r = toBool(JBox_LoadMOMPropertyByTag(portR,OUT_CONN));
+	return r ? STEREO : (l ? MONO : SILENT);
 }
 
 void portName(char *tmp,const char channel,const uint32 N,const char *baseName) {
-			char ext[3];
+	char ext[3];
 
-			strcpy(tmp,baseName);
-			ext[0]=channel;
-			ext[1]=(N>0) ? '0'+(char)N : '\0';
-			ext[2]='\0';
-			strcat(tmp,ext);
+	strcpy(tmp,baseName);
+	ext[0]=channel;
+	ext[1]=(N>0) ? '0'+(char)N : '\0';
+	ext[2]='\0';
+	strcat(tmp,ext);
 }
 
 port_t getPort(const char channel,const uint32 N,const bool in) {
@@ -59,15 +53,14 @@ port_t getPort(const char channel,const uint32 N,const bool in) {
 
 
 
-
-SwitchNMix::SwitchNMix() : RackExtension(), inMode(IOPair::Mode::SILENT), outMode(IOPair::Mode::SILENT),
-				carryInL(IOPair::BUFFER_SIZE,0), carryInR(IOPair::BUFFER_SIZE,0),
-		carryOutL(IOPair::BUFFER_SIZE,0), carryOutR(IOPair::BUFFER_SIZE,0),
-		tempL(IOPair::BUFFER_SIZE,0), tempR(IOPair::BUFFER_SIZE,0){
+SwitchNMix::SwitchNMix() : RackExtension(), inMode(Mode::SILENT), outMode(Mode::SILENT),
+		carryInL(BUFFER_SIZE,0), carryInR(BUFFER_SIZE,0),
+		carryOutL(BUFFER_SIZE,0), carryOutR(BUFFER_SIZE,0),
+		tempL(BUFFER_SIZE,0), tempR(BUFFER_SIZE,0){
 
 	bypassed = new bool[NUM_PORTS];
 	factor = new float32[NUM_PORTS];
-	kind = new Block::Kind[NUM_PORTS];
+	kind = new Kind[NUM_PORTS];
 	first = new bool[NUM_PORTS];
 
 	insL = new port_t[NUM_PORTS];
@@ -75,13 +68,13 @@ SwitchNMix::SwitchNMix() : RackExtension(), inMode(IOPair::Mode::SILENT), outMod
 	outsL = new port_t[NUM_PORTS];
 	outsR = new port_t[NUM_PORTS];
 
-	insMode = new IOPair::Mode[NUM_PORTS];
-	outsMode = new IOPair::Mode[NUM_PORTS];
+	insMode = new Mode[NUM_PORTS];
+	outsMode = new Mode[NUM_PORTS];
 
 	for(auto n=0;n<NUM_PORTS;n++) {
 		bypassed[n]=false;
 		factor[n]=1.0;
-		kind[n]=Block::Kind::SERIAL;
+		kind[n]=Kind::SERIAL;
 		first[n]=(n==0);
 
 		insL[n] = getPort('L',n+1,true);
@@ -89,8 +82,8 @@ SwitchNMix::SwitchNMix() : RackExtension(), inMode(IOPair::Mode::SILENT), outMod
 		outsL[n] = getPort('L',n+1,false);
 		outsR[n] = getPort('R',n+1,false);
 
-		insMode[n] = IOPair::Mode::SILENT;
-		outsMode[n] = IOPair::Mode::SILENT;
+		insMode[n] = Mode::SILENT;
+		outsMode[n] = Mode::SILENT;
 	}
 
 	inL = getPort('L',0,true);
@@ -126,10 +119,10 @@ bool didConnect(TJBox_Value value) {
 
 
 void SwitchNMix::reset() {
-	carryInL.assign(IOPair::BUFFER_SIZE,0);
-	carryInR.assign(IOPair::BUFFER_SIZE,0);
-	carryOutL.assign(IOPair::BUFFER_SIZE,0);
-	carryOutR.assign(IOPair::BUFFER_SIZE,0);
+	carryInL.assign(BUFFER_SIZE,0);
+	carryInR.assign(BUFFER_SIZE,0);
+	carryOutL.assign(BUFFER_SIZE,0);
+	carryOutR.assign(BUFFER_SIZE,0);
 	shouldCheck=true;
 }
 
@@ -157,8 +150,8 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 	Tag tag = diff.fPropertyTag;
 	switch(tag) {
 	case kJBox_CustomPropertiesOnOffBypass: {
-			trace("On/off/bypass status change");
-			break; }
+		trace("On/off/bypass status change");
+		break; }
 	case kJBox_AudioInputConnected: {
 		trace("**** Audio In  event");
 		shouldCheck=true;
@@ -178,7 +171,7 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 			auto offset=tag-Tags::CONNECT;
 			if(offset>0 && offset<=N_PORTS) {
 				auto b = toBool(diff.fCurrentValue);
-				kind[offset-1] = b ? Block::Kind::SERIAL : Block::Kind::PARALLEL;
+				kind[offset-1] = b ? Kind::PARALLEL : Kind::SERIAL;
 				shouldRecalculate=true;
 			}
 		}
@@ -222,7 +215,7 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		}
 	}
 	initialised=true;
-	*/
+	 */
 
 }
 
@@ -234,62 +227,225 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 void SwitchNMix::process() {
 	if(shouldCheck) {
 		shouldCheck=false;
+		trace("Checking connections");
 		checkConnections();
 	}
-	if(shouldRecalculate) {
-		shouldRecalculate=false;
-		recalculate();
-	}
+//	if(shouldRecalculate) {
+//		trace("Recalculating connections");
+//		shouldRecalculate=false;
+//		recalculate();
+//	}
 	read(inL,carryInL.data());
 	read(inR,carryInR.data());
 
-		for(auto i=0;i<N_PORTS;i++) {
-			bool isSerial = kind[i]==Block::Kind::SERIAL;
-			bool isFirst = first[i];
-			if(!bypassed[i]) {
-				// transition actions
-				// transitions can only occur at index 1 et seq
-				if(i>0 && isFirst && isSerial) {
-					std::copy(carryOutL.begin(),carryOutL.end(),carryInL.begin());
-					std::copy(carryOutR.begin(),carryOutR.end(),carryInR.begin());
-				}
-				// do the write
-				write(outsL[i],carryInL.data());
-				write(outsR[i],carryInR.data());
-				// read into temp buffer
-				read(insL[i],tempL.data());
-				read(insR[i],tempR.data());
+	auto preceder = Kind::INITIAL;
+	for(auto i=0;i<N_PORTS;i++) {
+		auto thisKind = kind[i];
+		auto fac=factor[i];
 
-				auto fac=factor[i];
-				if(isSerial) { // serial case
-					for(auto n=0;n<IOPair::BUFFER_SIZE;n++) {
-						carryInL[n]=tempL[n]*fac;
-						carryInR[n]=tempR[n]*fac;
-						// copy to output
-						std::copy(carryInL.begin(),carryInL.end(),carryOutL.begin());
-						std::copy(carryInR.begin(),carryInR.end(),carryOutR.begin());
+		write(outsL[i],carryInL.data());
+		write(outsR[i],carryInR.data());
+
+		read(insL[i],tempL.data());
+		read(insR[i],tempR.data());
+
+		switch(preceder) {
+		case Kind::SERIAL: {
+			switch(thisKind) {
+			case Kind::SERIAL:
+				for(auto n=0;n<BUFFER_SIZE;n++) {
+					carryInL[n]=tempL[n]*fac;
+					carryInR[n]=tempR[n]*fac;
+				}
+				break;
+			case Kind::PARALLEL:
+				for(auto n=0;n<BUFFER_SIZE;n++) {
+					carryOutL[n]=tempL[n]*fac;
+					carryOutR[n]=tempR[n]*fac;
+				}
+				break;
+			default:
+				break;
+			}
+			break; }
+		case Kind::PARALLEL: {
+			switch(thisKind) {
+			case Kind::SERIAL:
+				for(auto n=0;n<BUFFER_SIZE;n++) {
+					carryInL[n]=carryOutL[n]+tempL[n]*fac;
+					carryInR[n]=carryOutR[n]+tempR[n]*fac;
+				}
+				break;
+			case Kind::PARALLEL:
+				for(auto n=0;n<BUFFER_SIZE;n++) {
+					carryOutL[n]+=tempL[n]*fac;
+					carryOutR[n]+=tempR[n]*fac;
+				}
+				break;
+			default:
+				break;
+			}
+			break; }
+		default:
+			break;
+		}
+		preceder=thisKind;
+	}
+
+	switch(preceder) {
+	case Kind::SERIAL:
+		for(auto i=0;i<BUFFER_SIZE;i++) {
+			tempL[i]=carryInL[i]*gain;
+			tempR[i]=carryInR[i]*gain;
+		}
+		break;
+	case Kind::PARALLEL:
+		for(auto i=0;i<BUFFER_SIZE;i++) {
+			tempL[i]=carryOutL[i]*gain;
+			tempR[i]=carryOutR[i]*gain;
+		}
+		break;
+	case Kind::INITIAL:
+		break;
+	}
+
+	write(outL,tempL.data());
+	write(outR,tempR.data());
+}
+
+}}
+
+
+	//		read(insL[i],tempL.data());
+	//		read(insR[i],tempR.data());
+
+	//		switch(preceder) {
+	//		case Block::Kind::SERIAL:
+	//		case Block::Kind::INITIAL:
+	//			for(auto n=0;n<BUFFER_SIZE;n++) {
+	//				carryOutL[n]=tempL[n]*fac;
+	//				carryOutR[n]=tempR[n]*fac;
+	//			}
+	//			break;
+	//		case Block::Kind::PARALLEL:
+	//			for(auto n=0;n<BUFFER_SIZE;n++) {
+	//				carryOutL[n]+=tempL[n]*fac;
+	//				carryOutR[n]+=tempR[n]*fac;
+	//			}
+	//			if(thisKind==Block::Kind::SERIAL) {
+	//				std::copy(carryOutL.begin(),carryOutL.end(),carryInL.begin());
+	//				std::copy(carryOutR.begin(),carryOutR.end(),carryInR.begin());
+	//			}
+	//			break;
+	//		}
+	//		preceder=thisKind;
+	//	}
+	//
+	//	for(auto i=0;i<BUFFER_SIZE;i++) {
+	//				carryIn[i]*=gain;
+	//				carryOutR[i]*=gain;
+	//			}
+	//			// the final write
+	//			write(outL,carryOutL.data());
+	//			write(outR,carryOutR.data());
+
+
+	//		switch(thisKind) {
+	//		case Block::Kind::SERIAL:
+	//
+	//			switch(preceder) {
+	//			case Block::Kind::SERIAL:
+	//				for(auto n=0;n<BUFFER_SIZE;n++) {
+	//					carryOutL[n]=tempL[n]*fac;
+	//					carryOutR[n]=tempR[n]*fac;
+	//				}
+	//				break;
+	//			case Block::Kind::PARALLEL:
+	//				for(auto n=0;n<BUFFER_SIZE;n++) {
+	//					carryInL[n]=carryOutL[n]+tempL[n]*fac;
+	//					carryInR[n]=carryOutR[n]+tempR[n]*fac;
+	//				}
+	//				break;
+	//			default:
+	//				break;
+	//			}
+	//			break;
+	//		case Block::Kind::PARALLEL:
+	//			switch(preceder) {
+	//			case Block::Kind::SERIAL:
+	//				for(auto n=0;n<BUFFER_SIZE;n++) {
+	//					carryOutL[n]=tempL[n]*fac;
+	//					carryOutR[n]=tempR[n]*fac;
+	//				}
+	//				break;
+	//			case Block::Kind::PARALLEL:
+	//				for(auto n=0;n<BUFFER_SIZE;n++) {
+	//					carryOutL[n]+=tempL[n]*fac;
+	//					carryOutR[n]+=tempR[n]*fac;
+	//				}
+	//				break;
+	//			default:
+	//				break;
+	//			}
+	//			break;
+	//			default:
+	//				break;
+	//
+	//		}
+
+	/*
+	for(auto i=0;i<N_PORTS;i++) {
+		bool isSerial = kind[i]==Block::Kind::SERIAL;
+		bool isFirst = first[i];
+		if(!bypassed[i]) {
+			// transition actions
+			// transitions can only occur at index 1 et seq
+			if(i>0 && isFirst && isSerial) {
+				std::copy(carryOutL.begin(),carryOutL.end(),carryInL.begin());
+				std::copy(carryOutR.begin(),carryOutR.end(),carryInR.begin());
+			}
+			// do the write
+			write(outsL[i],carryInL.data());
+			write(outsR[i],carryInR.data());
+			// read into temp buffer
+			read(insL[i],tempL.data());
+			read(insR[i],tempR.data());
+
+			auto fac=factor[i];
+			if(isSerial) { // serial case
+				for(auto n=0;n<BUFFER_SIZE;n++) {
+					carryInL[n]=tempL[n]*fac;
+					carryInR[n]=tempR[n]*fac;
+					// copy to output
+					std::copy(carryInL.begin(),carryInL.end(),carryOutL.begin());
+					std::copy(carryInR.begin(),carryInR.end(),carryOutR.begin());
+				}
+			}
+			else { // parallel case
+				if(isFirst) {
+					for(auto n=0;n<BUFFER_SIZE;n++) {
+						carryOutL[n]=tempL[n]*fac;
+						carryOutR[n]=tempR[n]*fac;
 					}
 				}
-				else { // parallel case
-					if(isFirst) {
-						for(auto n=0;n<IOPair::BUFFER_SIZE;n++) {
-							carryOutL[n]=tempL[n]*fac;
-							carryOutR[n]=tempR[n]*fac;
-						}
-					}
-					else {
-						for(auto n=0;n<IOPair::BUFFER_SIZE;n++) {
-							carryOutL[n]+=tempL[n]*fac;
-							carryOutR[n]+=tempR[n]*fac;
-						}
+				else {
+					for(auto n=0;n<BUFFER_SIZE;n++) {
+						carryOutL[n]+=tempL[n]*fac;
+						carryOutR[n]+=tempR[n]*fac;
 					}
 				}
 			}
 		}
-		// the final write
-		write(outL,carryInL.data());
-		write(outR,carryInR.data());
-}
+	}
+	for(auto i=0;i<BUFFER_SIZE;i++) {
+		carryOutL[i]*=gain;
+		carryOutR[i]*=gain;
+	}
+	// the final write
+	write(outL,carryOutL.data());
+	write(outR,carryOutR.data());
+	*/
+//}
 
-} /* namespace switchnmix */
-} /* namespace meromorph */
+//} /* namespace switchnmix */
+//} /* namespace meromorph */
