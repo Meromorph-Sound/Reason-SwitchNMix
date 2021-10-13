@@ -25,6 +25,7 @@ enum Tags : uint32 {
 
 #define N_PORTS 4
 
+
 using port_t = TJBox_ObjectRef;
 
 
@@ -57,16 +58,16 @@ private:
 	Mode inMode;
 	Mode outMode;
 
-	bool *bypassed;
-	float32 *factor;
-	Kind *kind;
-	bool *first;
+	std::vector<bool> bypassed;
+	std::vector<float32> factor;
+	std::vector<Kind> kind;
+
 
 	port_t *insL, *insR;
 	port_t *outsL, *outsR;
 
-	Mode *insMode;
-	Mode *outsMode;
+	std::vector<Mode> insMode;
+	std::vector<Mode> outsMode;
 
 	std::vector<float32> carryInL, carryInR;
 	std::vector<float32> carryOutL, carryOutR;
@@ -75,7 +76,7 @@ private:
 
 	float32 gain=1;
 	bool shouldCheck=true;
-	bool shouldRecalculate=true;
+
 
 	static uint32 read(const port_t,float32 *);
 	static void write(const port_t,float32 *);
@@ -83,9 +84,6 @@ private:
 	static Mode modeIn(const port_t,const port_t);
 	static Mode modeOut(const port_t,const port_t);
 
-	void process(const uint32 N);
-	void checkConnections();
-	void recalculate();
 
 
 
