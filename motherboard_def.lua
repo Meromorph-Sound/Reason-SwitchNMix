@@ -51,7 +51,6 @@ for N = 1, N_UNITS do
     ui_type = jbox.ui_selector({jbox.UI_TEXT_OFF,jbox.UI_TEXT_ON})
   }
   
-  if N < N_UNITS then
     properties[nameFor('CONNECT',N)] = jbox.number {
       default = 0,
       steps = 2,
@@ -59,7 +58,7 @@ for N = 1, N_UNITS do
       property_tag = tagFor('CONNECT',N),
       ui_type = jbox.ui_selector(apply(jbox.ui_text,connections))
     }
-  end
+  
 end
 
 properties['GAIN'] = jbox.number {
@@ -101,9 +100,7 @@ remotes['/custom_properties/GAIN']=remote('GAIN')
 for N=1,N_UNITS do
   setMidiRemote('DRY_WET',N)
   setMidiRemote('BYPASS',N)
-  if N < N_UNITS then
     setMidiRemote('CONNECT',N)
-  end
 end
 
 

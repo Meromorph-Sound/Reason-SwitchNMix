@@ -6,16 +6,19 @@ local N_UNITS = 4
 
 front = { 
   Bg = {{ path = "Panel_Front_1U" }},
-  deviceName = { offset = { 460, 20}, { path = "Tape_Horizontal_1frames", frames = 1 }},
+  deviceName = { offset = { 200, 10}, { path = "Tape_Horizontal_1frames", frames = 1 }},
   GAIN = { offset = {3380,90}, { path = "Knob_01_63frames", frames = 63}},
+  LIITER_ON_OFF = {offset = { 3040, 90 },{ path = "Button_53_2frames", frames = 2}},
+  LIMITER_HARD_SOFT = {offset = { 3040, 205 },{ path = "Button_53_2frames", frames = 2}},
+  LIMITER = {offset = { 2820, 90 },{ path = "Knob_01_63frames", frames = 63 }},
 }
 for N = 1, N_UNITS do
-  local offset=600*(N-1)
-  front['DRY_WET'..N] = { offset = { 1040+offset,90 }, { path = "Knob_46_63frames", frames = 63}}
-  front['BYPASS'..N] = { offset = { 970+offset,250 }, { path = "Button_53_2frames", frames = 2}}
-  if N<N_UNITS then
-    front['CONNECT'..N] = { offset = { 1325+offset,150 }, { path = "serial-parallel-2frames", frames = 2}}
-  end
+  local offset=500*(N-1)
+  front['DRY_WET'..N] = { offset = { 770+offset,90 }, { path = "Knob_46_63frames", frames = 63}}
+  front['BYPASS'..N] = { offset = { 770+offset,250 }, { path = "Button_53_2frames", frames = 2}}
+  front['CONNECT'..N] = { offset = { 970+offset,100 }, { path = "Mode_Select_2frames", frames = 2}}
+  front['IN_LED'..N] = { offset = { 970+offset,20 }, { path = "Lamp_10_GREEN_2frames", frames = 2}}
+  front['OUT_LED'..N] = { offset = { 1075+offset,20 }, { path = "Lamp_10_RED_2frames", frames = 2}}
 end
 
 back = { 

@@ -23,9 +23,7 @@ local w = {
 for N = 1, 4 do
   table.insert(w,jbox.analog_knob(prop_display('DRY_WET',N)))
   table.insert(w,jbox.toggle_button(prop_display('BYPASS',N)))
-  if N < 4 then
-    table.insert(w,jbox.toggle_button(prop_display('CONNECT',N)))
-    end
+  table.insert(w,jbox.toggle_button(prop_display('CONNECT',N)))
 end
 
 front = jbox.panel { graphics = { node = "Bg" }, widgets = w }
