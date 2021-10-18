@@ -24,6 +24,8 @@ void SwitchNMix::write(const port_t port,float32 *data) {
 	JBox_SetDSPBufferData(refL, 0, BUFFER_SIZE,data);
 }
 
+
+
 SwitchNMix::Mode SwitchNMix::modeIn(const port_t portL,const port_t portR) {
 	auto l=toBool(JBox_LoadMOMPropertyByTag(portL,IN_CONN));
 	auto r=toBool(JBox_LoadMOMPropertyByTag(portR,IN_CONN));
@@ -56,7 +58,7 @@ port_t getPort(const char channel,const uint32 N,const bool in) {
 
 
 SwitchNMix::SwitchNMix() : RackExtension(), inMode(Mode::SILENT), outMode(Mode::SILENT),
-		bypassed(NUM_PORTS,false), factor(NUM_PORTS,1.0), kind(NUM_PORTS,Kind::SERIAL),
+		active(NUM_PORTS,false), factor(NUM_PORTS,1.0), kind(NUM_PORTS,Kind::SERIAL),
 		carryInL(BUFFER_SIZE,0), carryInR(BUFFER_SIZE,0),
 		carryOutL(BUFFER_SIZE,0), carryOutR(BUFFER_SIZE,0),
 		insMode(NUM_PORTS,Mode::SILENT), outsMode(NUM_PORTS,Mode::SILENT),
@@ -132,7 +134,7 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		else if(isIn(Tags::BYPASS,tag)) {
 			trace("BYPASS");
 			auto offset=offsetFrom(Tags::BYPASS,tag);
-			bypassed[offset]=toBool(diff.fCurrentValue);
+			active[offset]=toBool(diff.fCurrentValue);
 		}
 		else if(isIn(Tags::DRY_WET,tag)) {
 			trace("DRY/WET");
@@ -151,6 +153,29 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 
 }
 
+bool SwitchNMix::checkModeChangeIn(const uint32 n) {
+	auto oldMode=insMode[n];
+	insMode[n]=modeIn(insL[n],insR[n]);
+	return oldMode!=insMode[n];
+}
+
+bool SwitchNMix::checkModeChangeIn() {
+	auto oldMode=inMode;
+	inMode=modeIn(inL,inR);
+	return oldMode!=inMode;
+}
+
+bool SwitchNMix::checkModeChangeOut(const uint32 n) {
+	auto oldMode=outsMode[n];
+	outsMode[n]=modeOut(outsL[n],outsR[n]);
+	return oldMode!=outsMode[n];
+}
+
+bool SwitchNMix::checkModeChangeOut() {
+	auto oldMode=outMode;
+	outMode=modeOut(outL,outR);
+	return oldMode!=outMode;
+}
 
 
 void SwitchNMix::process() {
@@ -158,19 +183,27 @@ void SwitchNMix::process() {
 	if(shouldCheck) {
 		shouldCheck=false;
 		trace("Checking connections");
-		inMode = modeIn(inL,inR);
-		outMode = modeOut(outL,outR);
+		//auto inC = checkModeChangeIn();
+		//auto outC = checkModeChangeOut();
 
 		for(auto i=0;i<NUM_PORTS;i++) {
-			insMode[i]=modeIn(insL[i],insR[i]);
-			outsMode[i]=modeOut(outsL[i],outsR[i]);
+			auto inC=checkModeChangeIn(i);
+			if(inC) {
+				uint32 value = (insMode[i]==SILENT) ? 0 : 1;
+				set(value,Tags::IN_LEDS+i+1);
+			}
+			auto outC=checkModeChangeOut(i);
+			if(outC) {
+				uint32 value = (outsMode[i]==SILENT) ? 0 : 1;
+				set(value,Tags::OUT_LEDS+i+1);
+			}
 		}
 	}
 
 	read(inL,carryInL.data());
 	read(inR,carryInR.data());
 
-	auto preceder = Kind::INITIAL;
+	//auto preceder = Kind::INITIAL;
 #if defined NEWCODE
 	for(auto i=0;i<N_PORTS;i++) {
 		auto thisKind = kind[i];
@@ -254,7 +287,7 @@ void SwitchNMix::process() {
 	for(auto i=0;i<NUM_PORTS;i++) {
 		bool isBefore = kind[i] == Kind::SERIAL;
 
-		if(!bypassed[i]) {
+		if(active[i]) {
 			if(isBefore) {
 				write(outsL[i],carryInL.data());
 				write(outsR[i],carryInR.data());

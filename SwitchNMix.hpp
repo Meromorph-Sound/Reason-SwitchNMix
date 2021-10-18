@@ -20,7 +20,9 @@ enum Tags : uint32 {
 	GAIN=1,
 	DRY_WET=10,
 	BYPASS=20,
-	CONNECT=30
+	CONNECT=30,
+	IN_LEDS=40,
+	OUT_LEDS=50
 };
 
 #define N_PORTS 4
@@ -58,7 +60,7 @@ private:
 	Mode inMode;
 	Mode outMode;
 
-	std::vector<bool> bypassed;
+	std::vector<bool> active;
 	std::vector<float32> factor;
 	std::vector<Kind> kind;
 
@@ -84,6 +86,10 @@ private:
 	static Mode modeIn(const port_t,const port_t);
 	static Mode modeOut(const port_t,const port_t);
 
+	bool checkModeChangeIn(const uint32 n);
+	bool checkModeChangeIn();
+	bool checkModeChangeOut(const uint32 n);
+	bool checkModeChangeOut();
 
 
 

@@ -17,8 +17,8 @@ for N = 1, N_UNITS do
   front['DRY_WET'..N] = { offset = { 770+offset,90 }, { path = "Knob_46_63frames", frames = 63}}
   front['BYPASS'..N] = { offset = { 770+offset,250 }, { path = "Button_53_2frames", frames = 2}}
   front['CONNECT'..N] = { offset = { 970+offset,100 }, { path = "Mode_Select_2frames", frames = 2}}
-  front['IN_LED'..N] = { offset = { 970+offset,20 }, { path = "Lamp_10_GREEN_2frames", frames = 2}}
-  front['OUT_LED'..N] = { offset = { 1075+offset,20 }, { path = "Lamp_10_RED_2frames", frames = 2}}
+  front['IN_LEDS'..N] = { offset = { 970+offset,20 }, { path = "Lamp_10_GREEN_2frames", frames = 2}}
+  front['OUT_LEDS'..N] = { offset = { 1075+offset,20 }, { path = "Lamp_10_RED_2frames", frames = 2}}
 end
 
 back = { 

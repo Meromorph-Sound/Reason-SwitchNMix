@@ -24,6 +24,8 @@ for N = 1, 4 do
   table.insert(w,jbox.analog_knob(prop_display('DRY_WET',N)))
   table.insert(w,jbox.toggle_button(prop_display('BYPASS',N)))
   table.insert(w,jbox.toggle_button(prop_display('CONNECT',N)))
+  table.insert(w,jbox.sequence_meter(prop_display('IN_LEDS',N)))
+  table.insert(w,jbox.sequence_meter(prop_display('OUT_LEDS',N)))
 end
 
 front = jbox.panel { graphics = { node = "Bg" }, widgets = w }

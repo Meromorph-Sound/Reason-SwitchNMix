@@ -10,6 +10,9 @@ texts = {
   ["BYPASS"] = "Bypass",
   ["CONNECT"] = "Connect",
   
+  ['IN_LEDS'] = 'Input',
+  ['OUT_LEDS'] = 'Output',
+  
   ["GAIN"] = "Gain",
   ["GAIN_short"] = "gain",
   ["GAIN_shortest"] = "GAIN",
@@ -30,6 +33,8 @@ for N = 1,4 do
   makeFor("DRY_WET","DW",N)
   makeFor("BYPASS","BP",N)
   makeFor("CONNECT","CON",N)
+  makeFor('IN_LEDS',"IN",N)
+  makeFor('OUT_LEDS',"OUT",N)  
 end
   
   

@@ -25,7 +25,9 @@ local N_UNITS = 4
 local BASES = {
   ["DRY_WET"] = 10,
   ["BYPASS"] = 20,
-  ["CONNECT"] = 30
+  ["CONNECT"] = 30,
+  ["IN_LEDS"] = 40,
+  ["OUT_LEDS"] = 50
 }
 
 function tagFor(unit,N)  return BASES[unit]+N end
@@ -33,6 +35,7 @@ function nameFor(unit,N) return unit..N end
 
 
 local properties = {}
+local rt_properties = {}
 
 for N = 1, N_UNITS do
   properties[nameFor('DRY_WET',N)] = jbox.number {
@@ -58,6 +61,24 @@ for N = 1, N_UNITS do
       property_tag = tagFor('CONNECT',N),
       ui_type = jbox.ui_selector(apply(jbox.ui_text,connections))
     }
+    
+    rt_properties[nameFor('IN_LEDS',N)] = jbox.number {
+      default=0,
+      steps=2,
+      ui_name=jbox.ui_text('IN_LEDS'),
+      property_tag=tagFor('IN_LEDS',N),
+      ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
+    }
+    
+    rt_properties[nameFor('OUT_LEDS',N)] = jbox.number {
+      default=0,
+      steps=2,
+      ui_name=jbox.ui_text('OUT_LEDS'),
+      property_tag=tagFor('OUT_LEDS',N),
+      ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
+    }
+    
+    
   
 end
 
@@ -69,10 +90,12 @@ properties['GAIN'] = jbox.number {
 }
 
 
+
+
 custom_properties = jbox.property_set{
   document_owner = {['properties']  = properties },
 	rtc_owner = { properties = { instance = jbox.native_object{} } },
-	rt_owner = { properties = {} }
+	rt_owner = { ['properties'] = rt_properties }
 }
 
 function remote(name) 
