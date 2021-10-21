@@ -7,10 +7,9 @@ local N_UNITS = 4
 front = { 
   Bg = {{ path = "Panel_Front_1U" }},
   deviceName = { offset = { 200, 10}, { path = "Tape_Horizontal_1frames", frames = 1 }},
-  GAIN = { offset = {3380,90}, { path = "Knob_01_63frames", frames = 63}},
-  LIITER_ON_OFF = {offset = { 3040, 90 },{ path = "Button_53_2frames", frames = 2}},
-  LIMITER_HARD_SOFT = {offset = { 3040, 205 },{ path = "Button_53_2frames", frames = 2}},
-  LIMITER = {offset = { 2820, 90 },{ path = "Knob_01_63frames", frames = 63 }},
+  LEFT_VOL = {offset = {2800, 20 },{ path = "Meter_13frames", frames = 13}},
+  RIGHT_VOL = {offset = {3200, 20 },{ path = "Meter_13frames", frames = 13}},
+  GAIN = { offset = {2800,90}, { path = "Knob_01_63frames", frames = 63}},
 }
 for N = 1, N_UNITS do
   local offset=500*(N-1)

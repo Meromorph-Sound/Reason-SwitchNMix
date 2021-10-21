@@ -18,6 +18,10 @@ namespace switchnmix {
 
 enum Tags : uint32 {
 	GAIN=1,
+	LEFT_VOL=2,
+	RIGHT_VOL=3,
+	LEFT_MAX=4,
+	RIFHT_MAX=5,
 	DRY_WET=10,
 	BYPASS=20,
 	CONNECT=30,
@@ -64,9 +68,8 @@ private:
 	std::vector<float32> factor;
 	std::vector<Kind> kind;
 
-
-	port_t *insL, *insR;
-	port_t *outsL, *outsR;
+	std::vector<port_t> insL, insR;
+	std::vector<port_t> outsL, outsR;
 
 	std::vector<Mode> insMode;
 	std::vector<Mode> outsMode;
@@ -78,8 +81,11 @@ private:
 
 	float32 gain=1;
 	bool shouldCheck=true;
+	uint32 chunkCount = 0;
+	float32 rmsL=0;
+	float32 rmsR=0;
 
-
+	static double rms(std::vector<float32> &);
 	static uint32 read(const port_t,float32 *);
 	static void write(const port_t,float32 *);
 
@@ -101,7 +107,7 @@ protected:
 
 public:
 	SwitchNMix();
-	virtual ~SwitchNMix();
+	virtual ~SwitchNMix() = default;
 	SwitchNMix(const SwitchNMix &other) = default;
 	SwitchNMix & operator=(const SwitchNMix &other) = default;
 };

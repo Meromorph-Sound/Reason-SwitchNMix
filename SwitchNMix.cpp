@@ -61,13 +61,10 @@ SwitchNMix::SwitchNMix() : RackExtension(), inMode(Mode::SILENT), outMode(Mode::
 		active(NUM_PORTS,false), factor(NUM_PORTS,1.0), kind(NUM_PORTS,Kind::SERIAL),
 		carryInL(BUFFER_SIZE,0), carryInR(BUFFER_SIZE,0),
 		carryOutL(BUFFER_SIZE,0), carryOutR(BUFFER_SIZE,0),
+		insL(BUFFER_SIZE), insR(BUFFER_SIZE), outsL(BUFFER_SIZE), outsR(BUFFER_SIZE),
 		insMode(NUM_PORTS,Mode::SILENT), outsMode(NUM_PORTS,Mode::SILENT),
 		tempL(BUFFER_SIZE,0), tempR(BUFFER_SIZE,0){
 
-	insL = new port_t[NUM_PORTS];
-	insR = new port_t[NUM_PORTS];
-	outsL = new port_t[NUM_PORTS];
-	outsR = new port_t[NUM_PORTS];
 
 	for(auto n=0;n<NUM_PORTS;n++) {
 		insL[n] = getPort('L',n+1,true);
@@ -83,12 +80,7 @@ SwitchNMix::SwitchNMix() : RackExtension(), inMode(Mode::SILENT), outMode(Mode::
 
 }
 
-SwitchNMix::~SwitchNMix() {
-	delete [] insL;
-	delete [] insR;
-	delete [] outsL;
-	delete [] outsR;
-}
+
 
 void SwitchNMix::reset() {
 	carryInL.assign(BUFFER_SIZE,0);
@@ -96,6 +88,9 @@ void SwitchNMix::reset() {
 	carryOutL.assign(BUFFER_SIZE,0);
 	carryOutR.assign(BUFFER_SIZE,0);
 	shouldCheck=true;
+	chunkCount=0;
+	rmsL=0;
+	rmsR=0;
 }
 
 inline bool isIn(const Tag base,const Tag value) {
@@ -177,6 +172,18 @@ bool SwitchNMix::checkModeChangeOut() {
 	return oldMode!=outMode;
 }
 
+double SwitchNMix::rms(std::vector<float32> &buffer) {
+	auto sum = 0.f;
+	std::for_each(buffer.begin(),buffer.end(),[&sum](auto v) { sum+=v*v; });
+	auto r=sqrt(sum/(float32)BUFFER_SIZE);
+	return std::min(1.f,r);
+}
+
+bool nonZero(std::vector<float32> &buffer) {
+	auto mima=std::minmax_element(buffer.begin(),buffer.end());
+	return (*mima.first != 0) || (*mima.second !=0);
+}
+
 
 void SwitchNMix::process() {
 
@@ -203,91 +210,16 @@ void SwitchNMix::process() {
 	read(inL,carryInL.data());
 	read(inR,carryInR.data());
 
-	//auto preceder = Kind::INITIAL;
-#if defined NEWCODE
-	for(auto i=0;i<N_PORTS;i++) {
-		auto thisKind = kind[i];
-		auto fac=factor[i];
 
-		write(outsL[i],carryInL.data());
-		write(outsR[i],carryInR.data());
-
-		read(insL[i],tempL.data());
-		read(insR[i],tempR.data());
-
-		switch(preceder) {
-		case Kind::SERIAL: {
-			switch(thisKind) {
-			case Kind::SERIAL:
-				for(auto n=0;n<BUFFER_SIZE;n++) {
-					carryInL[n]=tempL[n]*fac;
-					carryInR[n]=tempR[n]*fac;
-				}
-				break;
-			case Kind::PARALLEL:
-				for(auto n=0;n<BUFFER_SIZE;n++) {
-					carryOutL[n]=tempL[n]*fac;
-					carryOutR[n]=tempR[n]*fac;
-				}
-				break;
-			default:
-				break;
-			}
-			break; }
-		case Kind::PARALLEL: {
-			switch(thisKind) {
-			case Kind::SERIAL:
-				for(auto n=0;n<BUFFER_SIZE;n++) {
-					carryInL[n]=carryOutL[n]+tempL[n]*fac;
-					carryInR[n]=carryOutR[n]+tempR[n]*fac;
-				}
-				break;
-			case Kind::PARALLEL:
-				for(auto n=0;n<BUFFER_SIZE;n++) {
-					carryOutL[n]+=tempL[n]*fac;
-					carryOutR[n]+=tempR[n]*fac;
-				}
-				break;
-			default:
-				break;
-			}
-			break; }
-		default:
-			break;
-		}
-		preceder=thisKind;
-	}
-
-	switch(preceder) {
-	case Kind::SERIAL:
-		for(auto i=0;i<BUFFER_SIZE;i++) {
-			tempL[i]=carryInL[i]*gain;
-			tempR[i]=carryInR[i]*gain;
-		}
-		break;
-	case Kind::PARALLEL:
-		for(auto i=0;i<BUFFER_SIZE;i++) {
-			tempL[i]=carryOutL[i]*gain;
-			tempR[i]=carryOutR[i]*gain;
-		}
-		break;
-	case Kind::INITIAL:
-		break;
-	}
-
-	write(outL,tempL.data());
-	write(outR,tempR.data());
-
-
-#else
 
 	carryOutL.assign(BUFFER_SIZE,0);
 	carryOutR.assign(BUFFER_SIZE,0);
 
 	for(auto i=0;i<NUM_PORTS;i++) {
 		bool isBefore = kind[i] == Kind::SERIAL;
-
+		auto fac=factor[i];
 		if(active[i]) {
+
 			if(isBefore) {
 				write(outsL[i],carryInL.data());
 				write(outsR[i],carryInR.data());
@@ -295,14 +227,13 @@ void SwitchNMix::process() {
 				read(insL[i],tempL.data());
 				read(insR[i],tempR.data());
 
-				auto fac=factor[i];
+
 				for(auto n=0;n<BUFFER_SIZE;n++) {
 					carryOutL[n] += tempL[n]*fac;
 					carryOutR[n] += tempR[n]*fac;
 				}
 			}
 			else {
-				auto fac=factor[i];
 				for(auto n=0;n<BUFFER_SIZE;n++) {
 					tempL[n] = carryOutL[n] + carryInL[n]*fac;
 					tempR[n] = carryOutR[n] + carryInR[n]*fac;
@@ -314,6 +245,12 @@ void SwitchNMix::process() {
 				read(insR[i],carryOutR.data());
 			}
 		}
+		else {
+			for(auto n=0;n<BUFFER_SIZE;n++) {
+				carryOutL[n] += carryInL[n]*fac;
+				carryOutR[n] += carryInR[n]*fac;
+			}
+		}
 	}
 	for(auto i=0;i<BUFFER_SIZE;i++) {
 		tempL[i]=carryOutL[i]*gain;
@@ -321,6 +258,18 @@ void SwitchNMix::process() {
 	}
 	write(outL,tempL.data());
 	write(outR,tempR.data());
+
+	if(chunkCount==0) {
+		auto lr = rms(tempL);
+		if(lr!=rmsL) set(lr,Tags::LEFT_VOL);
+		rmsL=lr;
+		auto rr = rms(tempR);
+		if(rr!=rmsR) set(rr,Tags::RIGHT_VOL);
+		rmsR=rr;
+	}
+	chunkCount=(chunkCount+1) & 0x3;
+
+
 
 	/*
 	for(auto i=0;i<N_PORTS;i++) {
@@ -373,8 +322,7 @@ void SwitchNMix::process() {
 		}
 	write(outL,tempL.data());
 	write(outR,tempR.data());
-*/
-#endif
+	 */
 }
 
 }}

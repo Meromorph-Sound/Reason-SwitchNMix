@@ -18,7 +18,11 @@ texts = {
   ["GAIN_shortest"] = "GAIN",
   
   ["serial"] = "serial",
-  ["parallel"] = "parallel"
+  ["parallel"] = "parallel",
+  ["VOLUME"] = "volume",
+  ["min"] = "min",
+  ["max"] = "max",
+  ["linear_template"] = "^0"
 }
 
 function makeFor(root,short,N)

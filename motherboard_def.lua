@@ -47,7 +47,7 @@ for N = 1, N_UNITS do
   
  
   properties[nameFor('BYPASS',N)] = jbox.number {
-    default=0,
+    default=1,
     steps=2,
     ui_name = jbox.ui_text('BYPASS'),  
     property_tag=tagFor('BYPASS',N),
@@ -88,6 +88,35 @@ properties['GAIN'] = jbox.number {
   property_tag=1,
   ui_type = jbox.ui_percent{decimals=1}
 }
+
+function linearType()
+  return jbox.ui_linear {
+    min=0,
+    max=1,
+    units = {
+      min_text = jbox.ui_text("min"),
+      max_text = jbox.ui_text("max"),
+      { 
+        decimals=2,
+        unit = { template = jbox.ui_text("linear_template") }
+      }
+    }
+  }
+end
+
+rt_properties['LEFT_VOL'] = jbox.number {
+  ui_name = jbox.ui_text("VOLUME"),
+  default = 0,
+  property_tag = 2,
+  ui_type = linearType()
+}
+rt_properties['RIGHT_VOL'] = jbox.number {
+  ui_name = jbox.ui_text("VOLUME"),
+  default = 0,
+  property_tag = 3,
+  ui_type = linearType()
+}
+
 
 
 
