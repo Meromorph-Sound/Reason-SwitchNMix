@@ -124,17 +124,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="1525.1754"
-     inkscape:cy="284.97599"
+     inkscape:cx="2012.3182"
+     inkscape:cy="193.54742"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:snap-global="false"
-     inkscape:window-width="2242"
+     inkscape:window-width="2298"
      inkscape:window-height="1027"
      inkscape:window-x="2122"
-     inkscape:window-y="273"
+     inkscape:window-y="217"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
@@ -210,16 +210,15 @@
        id="tspan2931-40-7-1-7-0"
        sodipodi:role="line">Limit on</tspan>
     <text
-       transform="rotate(-90)"
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;image-rendering:auto"
-       x="-268.48898"
-       y="3351.4329"
+       x="2802.2439"
+       y="311.12857"
        id="text2933-1-8-9-9"><tspan
          sodipodi:role="line"
          id="tspan2931-40-7-1-1"
-         x="-268.48898"
-         y="3351.4329"
+         x="2802.2439"
+         y="311.12857"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Output Gain</tspan></text>
     <tspan
        sodipodi:role="line"
@@ -275,17 +274,6 @@
        ry="37.142857"
        rx="37.142857" />
     <text
-       id="text2933-1-8-9-3-03"
-       y="293.05768"
-       x="870.14496"
-       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
-         y="293.05768"
-         x="870.14496"
-         id="tspan2931-40-7-1-7-9"
-         sodipodi:role="line">On/Bypass</tspan></text>
-    <text
        transform="rotate(-90)"
        xml:space="preserve"
        style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
@@ -317,17 +305,6 @@
        width="454.88956"
        id="rect1784-5"
        style="display:inline;opacity:1;fill:none;stroke:#ffffff;stroke-width:5.11047;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
-    <text
-       xml:space="preserve"
-       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
-       x="1370.1449"
-       y="293.05768"
-       id="text2933-1-8-9-3-03-9"><tspan
-         sodipodi:role="line"
-         id="tspan2931-40-7-1-7-9-1"
-         x="1370.1449"
-         y="293.05768"
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">On/Bypass</tspan></text>
     <text
        id="text2933-1-8-3"
        y="1435.3955"
@@ -361,17 +338,6 @@
        ry="37.142857"
        rx="37.142857" />
     <text
-       id="text2933-1-8-9-3-03-9-9"
-       y="293.05768"
-       x="1870.1449"
-       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
-         y="293.05768"
-         x="1870.1449"
-         id="tspan2931-40-7-1-7-9-1-5"
-         sodipodi:role="line">On/Bypass</tspan></text>
-    <text
        transform="rotate(-90)"
        xml:space="preserve"
        style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
@@ -404,17 +370,6 @@
        ry="37.142857"
        rx="37.142857" />
     <text
-       id="text2933-1-8-9-3-03-9-5"
-       y="293.05768"
-       x="2370.145"
-       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
-         y="293.05768"
-         x="2370.145"
-         id="tspan2931-40-7-1-7-9-1-1"
-         sodipodi:role="line">On/Bypass</tspan></text>
-    <text
        transform="rotate(-90)"
        xml:space="preserve"
        style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
@@ -426,12 +381,78 @@
          x="-181.61531"
          y="2435.3955"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Gain</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;image-rendering:auto"
+       x="1358.12"
+       y="296.65994"
+       id="text2933-1-8-9-3-03-9-3-0"><tspan
+         sodipodi:role="line"
+         id="tspan2931-40-7-1-7-9-1-0-9"
+         x="1358.12"
+         y="296.65994"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Active / bypassed</tspan></text>
+    <text
+       id="text2933-1-8-9-3-03-9-3-0-3"
+       y="299.51709"
+       x="1858.12"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;image-rendering:auto"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         y="299.51709"
+         x="1858.12"
+         id="tspan2931-40-7-1-7-9-1-0-9-0"
+         sodipodi:role="line">Active / bypassed</tspan></text>
+    <text
+       id="text2933-1-8-9-3-03-9-3-0-4"
+       y="296.65994"
+       x="2358.1199"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;image-rendering:auto"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         y="296.65994"
+         x="2358.1199"
+         id="tspan2931-40-7-1-7-9-1-0-9-4"
+         sodipodi:role="line">Active / bypassed</tspan></text>
+    <text
+       id="text2933-1-8-9-3-03-9-3"
+       y="296.66"
+       x="858.12"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         y="296.66"
+         x="858.12"
+         id="tspan2931-40-7-1-7-9-1-0"
+         sodipodi:role="line">Active / bypassed</tspan></text>
+    <text
+       id="text2933-1-8-9-9-9"
+       y="155.14"
+       x="3122.8174"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;image-rendering:auto"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         y="155.14"
+         x="3122.8174"
+         id="tspan2931-40-7-1-1-1"
+         sodipodi:role="line">Left</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;image-rendering:auto"
+       x="3096.8799"
+       y="215.32001"
+       id="text2933-1-8-9-9-9-0"><tspan
+         sodipodi:role="line"
+         id="tspan2931-40-7-1-1-1-6"
+         x="3096.8799"
+         y="215.32001"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Right</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Controls"
-     style="display:none;opacity:1">
+     style="display:inline;opacity:1">
     <rect
        style="display:inline;opacity:0.81;fill:#ff0000;fill-opacity:0.9;stroke:none;stroke-width:3.77953;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="tape"
@@ -442,7 +463,7 @@
     <rect
        label="GrowthRate"
        y="90"
-       x="3380"
+       x="2800"
        height="180"
        width="180.037"
        id="rect837-8"
@@ -465,13 +486,6 @@
        width="40"
        id="rect126-5-4"
        style="display:inline;fill:#ff0000;stroke:none;stroke-width:4.67707;stroke-linecap:round;stroke-linejoin:round" />
-    <rect
-       y="250"
-       x="770.00006"
-       height="65"
-       width="65"
-       id="rect1925-6-3"
-       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
     <rect
        style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:2.95413;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto"
        id="rect837"
@@ -507,13 +521,6 @@
        ry="0"
        rx="0" />
     <rect
-       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
-       id="rect1925-6-3-4"
-       width="65"
-       height="65"
-       x="1270"
-       y="250" />
-    <rect
        class="knob43"
        label="GrowthRate"
        y="90"
@@ -547,13 +554,6 @@
        width="40"
        id="rect126-5-4-9-7"
        style="display:inline;fill:#ff0000;stroke:none;stroke-width:4.67707;stroke-linecap:round;stroke-linejoin:round" />
-    <rect
-       y="250"
-       x="1770"
-       height="65"
-       width="65"
-       id="rect1925-6-3-4-6"
-       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
     <rect
        style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:2.95413;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto"
        id="rect837-3-8"
@@ -589,13 +589,6 @@
        id="rect126-5-4-9-2"
        style="display:inline;fill:#ff0000;stroke:none;stroke-width:4.67707;stroke-linecap:round;stroke-linejoin:round" />
     <rect
-       y="250"
-       x="2270"
-       height="65"
-       width="65"
-       id="rect1925-6-3-4-4"
-       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
-    <rect
        style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:2.95413;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto"
        id="rect837-3-1"
        width="125"
@@ -612,28 +605,6 @@
        x="2470"
        y="100" />
     <rect
-       label="GrowthRate"
-       y="90"
-       x="2820"
-       height="180"
-       width="180.037"
-       id="rect837-0"
-       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke-width:4.17177;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto" />
-    <rect
-       y="205"
-       x="3040"
-       height="65"
-       width="65"
-       id="rect1925"
-       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
-    <rect
-       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
-       id="rect1925-6"
-       width="65"
-       height="65"
-       x="3040"
-       y="90" />
-    <rect
        rx="0"
        ry="0"
        y="20"
@@ -642,5 +613,65 @@
        width="40"
        id="rect126"
        style="display:inline;fill:#ff0000;stroke:none;stroke-width:4.67707;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       style="fill:#ff0000;stroke:none;stroke-linecap:round;stroke-linejoin:round"
+       id="rect6463"
+       width="245"
+       height="60"
+       x="3200"
+       y="175" />
+    <rect
+       y="110"
+       x="3200"
+       height="60"
+       width="245"
+       id="rect6463-7"
+       style="display:inline;fill:#ff0000;stroke:none;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       y="250"
+       x="770"
+       height="65"
+       width="65"
+       id="rect1925-6-3-4-9"
+       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1925-6-3-4-9-0"
+       width="65"
+       height="65"
+       x="1270"
+       y="250" />
+    <rect
+       y="252.85715"
+       x="1770"
+       height="65"
+       width="65"
+       id="rect1925-6-3-4-9-0-1"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       y="250"
+       x="2270"
+       height="65"
+       width="65"
+       id="rect1925-6-3-4-9-0-7"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       style="display:inline;opacity:1;fill:#ff0000;stroke:none;stroke-width:4.67707;stroke-linecap:round;stroke-linejoin:round"
+       id="rect126-5-4-9-2-2"
+       width="40"
+       height="40"
+       x="3450"
+       y="120"
+       ry="0"
+       rx="0" />
+    <rect
+       rx="0"
+       ry="0"
+       y="185"
+       x="3450"
+       height="40"
+       width="40"
+       id="rect126-5-4-9-2-2-6"
+       style="display:inline;opacity:1;fill:#ff0000;stroke:none;stroke-width:4.67707;stroke-linecap:round;stroke-linejoin:round" />
   </g>
 </svg>

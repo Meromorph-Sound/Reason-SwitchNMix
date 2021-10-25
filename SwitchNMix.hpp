@@ -34,6 +34,43 @@ enum Tags : uint32 {
 
 using port_t = TJBox_ObjectRef;
 
+template<typename T>
+class DelayVector {
+private:
+	T defaultValue;
+	uint32 N;
+	uint32 count;
+	uint32 page;
+	uint32 sz;
+
+	using vect_t = std::vector<T>;
+	vect_t buffers;
+
+	inline uint32 index(int32 delta) {
+		auto off = delta + (int32)page;
+		auto o = (off>=0) ? (uint32)off : (uint32)(off+N);
+		return o%N;
+	}
+
+
+public:
+	DelayVector(const uint32 nS,const uint32 bS,const T def) : defaultValue(def), N(nS), count(bS), page(0),
+	sz(N*count), buffers(N*count,def) {}
+	DelayVector(const DelayVector &) = default;
+	DelayVector & operator=(const DelayVector &) = default;
+	virtual ~DelayVector() = default;
+
+	void step() { page=(page+count)%sz; }
+	T *data() { return buffers.data()+page; }
+	T &operator[](const int32 offset) { return buffers[index(offset)]; }
+
+	void reset() {
+		buffers.assign(sz,defaultValue);
+		page=0;
+
+	}
+};
+
 
 
 class SwitchNMix: public RackExtension {
@@ -84,6 +121,7 @@ private:
 	uint32 chunkCount = 0;
 	float32 rmsL=0;
 	float32 rmsR=0;
+
 
 	static double rms(std::vector<float32> &);
 	static uint32 read(const port_t,float32 *);

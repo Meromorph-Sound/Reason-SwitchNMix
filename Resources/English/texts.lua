@@ -9,6 +9,7 @@ texts = {
   ["DRY_WET"] = "DryWet",
   ["BYPASS"] = "Bypass",
   ["CONNECT"] = "Connect",
+  ["DELAY"] = "Delay",
   
   ['IN_LEDS'] = 'Input',
   ['OUT_LEDS'] = 'Output',

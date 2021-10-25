@@ -61,7 +61,7 @@ SwitchNMix::SwitchNMix() : RackExtension(), inMode(Mode::SILENT), outMode(Mode::
 		active(NUM_PORTS,false), factor(NUM_PORTS,1.0), kind(NUM_PORTS,Kind::SERIAL),
 		carryInL(BUFFER_SIZE,0), carryInR(BUFFER_SIZE,0),
 		carryOutL(BUFFER_SIZE,0), carryOutR(BUFFER_SIZE,0),
-		insL(BUFFER_SIZE), insR(BUFFER_SIZE), outsL(BUFFER_SIZE), outsR(BUFFER_SIZE),
+		insL(NUM_PORTS), insR(NUM_PORTS), outsL(NUM_PORTS), outsR(NUM_PORTS),
 		insMode(NUM_PORTS,Mode::SILENT), outsMode(NUM_PORTS,Mode::SILENT),
 		tempL(BUFFER_SIZE,0), tempR(BUFFER_SIZE,0){
 
@@ -185,6 +185,7 @@ bool nonZero(std::vector<float32> &buffer) {
 }
 
 
+
 void SwitchNMix::process() {
 
 	if(shouldCheck) {
@@ -207,6 +208,7 @@ void SwitchNMix::process() {
 		}
 	}
 
+
 	read(inL,carryInL.data());
 	read(inR,carryInR.data());
 
@@ -215,12 +217,15 @@ void SwitchNMix::process() {
 	carryOutL.assign(BUFFER_SIZE,0);
 	carryOutR.assign(BUFFER_SIZE,0);
 
+	// TODO: offset is in fact always a multiple of BUFFER_SIZE, so we just have a rotating array of 64-long
+	// buffers.  This makes it much simpler.
 	for(auto i=0;i<NUM_PORTS;i++) {
-		bool isBefore = kind[i] == Kind::SERIAL;
 		auto fac=factor[i];
 		if(active[i]) {
 
-			if(isBefore) {
+			if(kind[i] == Kind::SERIAL) {
+				// parallel case
+				// push input data through function
 				write(outsL[i],carryInL.data());
 				write(outsR[i],carryInR.data());
 
@@ -234,7 +239,13 @@ void SwitchNMix::process() {
 				}
 			}
 			else {
+				// serial case
+				// input is carryIn; sum, of input and output of previous stage
+				// goes through function to form next stage in
+				// last stage in is outIn; sum is temp
+
 				for(auto n=0;n<BUFFER_SIZE;n++) {
+					// temp is ouput of last stage + raw input
 					tempL[n] = carryOutL[n] + carryInL[n]*fac;
 					tempR[n] = carryOutR[n] + carryInR[n]*fac;
 				}

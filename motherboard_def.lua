@@ -27,7 +27,7 @@ local BASES = {
   ["BYPASS"] = 20,
   ["CONNECT"] = 30,
   ["IN_LEDS"] = 40,
-  ["OUT_LEDS"] = 50
+  ["OUT_LEDS"] = 50,
 }
 
 function tagFor(unit,N)  return BASES[unit]+N end
@@ -53,6 +53,7 @@ for N = 1, N_UNITS do
     property_tag=tagFor('BYPASS',N),
     ui_type = jbox.ui_selector({jbox.UI_TEXT_OFF,jbox.UI_TEXT_ON})
   }
+  
   
     properties[nameFor('CONNECT',N)] = jbox.number {
       default = 0,

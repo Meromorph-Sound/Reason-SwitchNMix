@@ -7,8 +7,8 @@ local N_UNITS = 4
 front = { 
   Bg = {{ path = "Panel_Front_1U" }},
   deviceName = { offset = { 200, 10}, { path = "Tape_Horizontal_1frames", frames = 1 }},
-  LEFT_VOL = {offset = {2800, 20 },{ path = "Meter_13frames", frames = 13}},
-  RIGHT_VOL = {offset = {3200, 20 },{ path = "Meter_13frames", frames = 13}},
+  LEFT_VOL = {offset = {3200, 110 },{ path = "Meter_13frames", frames = 13}},
+  RIGHT_VOL = {offset = {3200, 175 },{ path = "Meter_13frames", frames = 13}},
   GAIN = { offset = {2800,90}, { path = "Knob_01_63frames", frames = 63}},
 }
 for N = 1, N_UNITS do
