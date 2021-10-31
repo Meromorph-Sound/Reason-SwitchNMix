@@ -10,6 +10,7 @@
 
 #include "base.hpp"
 #include "RackExtension.hpp"
+#include "PagedVector.hpp"
 #include <memory>
 
 namespace meromorph {
@@ -34,42 +35,6 @@ enum Tags : uint32 {
 
 using port_t = TJBox_ObjectRef;
 
-template<typename T>
-class DelayVector {
-private:
-	T defaultValue;
-	uint32 N;
-	uint32 count;
-	uint32 page;
-	uint32 sz;
-
-	using vect_t = std::vector<T>;
-	vect_t buffers;
-
-	inline uint32 index(int32 delta) {
-		auto off = delta + (int32)page;
-		auto o = (off>=0) ? (uint32)off : (uint32)(off+N);
-		return o%N;
-	}
-
-
-public:
-	DelayVector(const uint32 nS,const uint32 bS,const T def) : defaultValue(def), N(nS), count(bS), page(0),
-	sz(N*count), buffers(N*count,def) {}
-	DelayVector(const DelayVector &) = default;
-	DelayVector & operator=(const DelayVector &) = default;
-	virtual ~DelayVector() = default;
-
-	void step() { page=(page+count)%sz; }
-	T *data() { return buffers.data()+page; }
-	T &operator[](const int32 offset) { return buffers[index(offset)]; }
-
-	void reset() {
-		buffers.assign(sz,defaultValue);
-		page=0;
-
-	}
-};
 
 
 
@@ -111,8 +76,9 @@ private:
 	std::vector<Mode> insMode;
 	std::vector<Mode> outsMode;
 
-	std::vector<float32> carryInL, carryInR;
-	std::vector<float32> carryOutL, carryOutR;
+	AutoPagedVector<float32> carryInL, carryInR;
+	//std::vector<float32> carryInL, carryInR;
+	AutoPagedVector<float32> carryOutL, carryOutR;
 	std::vector<float32> tempL, tempR;
 
 

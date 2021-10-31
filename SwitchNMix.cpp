@@ -59,8 +59,8 @@ port_t getPort(const char channel,const uint32 N,const bool in) {
 
 SwitchNMix::SwitchNMix() : RackExtension(), inMode(Mode::SILENT), outMode(Mode::SILENT),
 		active(NUM_PORTS,false), factor(NUM_PORTS,1.0), kind(NUM_PORTS,Kind::SERIAL),
-		carryInL(BUFFER_SIZE,0), carryInR(BUFFER_SIZE,0),
-		carryOutL(BUFFER_SIZE,0), carryOutR(BUFFER_SIZE,0),
+		carryInL(BUFFER_SIZE,NUM_PORTS,0), carryInR(BUFFER_SIZE,NUM_PORTS,0),
+		carryOutL(BUFFER_SIZE,NUM_PORTS,0), carryOutR(BUFFER_SIZE,NUM_PORTS,0),
 		insL(NUM_PORTS), insR(NUM_PORTS), outsL(NUM_PORTS), outsR(NUM_PORTS),
 		insMode(NUM_PORTS,Mode::SILENT), outsMode(NUM_PORTS,Mode::SILENT),
 		tempL(BUFFER_SIZE,0), tempR(BUFFER_SIZE,0){
@@ -83,10 +83,12 @@ SwitchNMix::SwitchNMix() : RackExtension(), inMode(Mode::SILENT), outMode(Mode::
 
 
 void SwitchNMix::reset() {
-	carryInL.assign(BUFFER_SIZE,0);
-	carryInR.assign(BUFFER_SIZE,0);
-	carryOutL.assign(BUFFER_SIZE,0);
-	carryOutR.assign(BUFFER_SIZE,0);
+	//carryInL.assign(BUFFER_SIZE,0);
+	//carryInR.assign(BUFFER_SIZE,0);
+	carryInL.reset(0);
+	carryInR.reset(0);
+	carryOutL.reset(0);
+	carryOutR.reset(0);
 	shouldCheck=true;
 	chunkCount=0;
 	rmsL=0;
@@ -208,17 +210,25 @@ void SwitchNMix::process() {
 		}
 	}
 
+	carryInL.step();
+	carryInR.step();
+
+	carryOutL.step();
+	carryOutR.step();
 
 	read(inL,carryInL.data());
 	read(inR,carryInR.data());
+	carryOutL.fillPage(0);
+	carryOutR.fillPage(0);
 
-
-
-	carryOutL.assign(BUFFER_SIZE,0);
-	carryOutR.assign(BUFFER_SIZE,0);
+	//carryOutL.assign(BUFFER_SIZE,0);
+	//carryOutR.assign(BUFFER_SIZE,0);
 
 	// TODO: offset is in fact always a multiple of BUFFER_SIZE, so we just have a rotating array of 64-long
 	// buffers.  This makes it much simpler.
+
+	int32 delayTop=0;
+	int32 delayBottom=0;
 	for(auto i=0;i<NUM_PORTS;i++) {
 		auto fac=factor[i];
 		if(active[i]) {
@@ -234,8 +244,8 @@ void SwitchNMix::process() {
 
 
 				for(auto n=0;n<BUFFER_SIZE;n++) {
-					carryOutL[n] += tempL[n]*fac;
-					carryOutR[n] += tempR[n]*fac;
+					carryOutL(n) = carryOutL(n) + tempL[n]*fac;
+					carryOutR(n) = carryOutR(n) + tempR[n]*fac;
 				}
 			}
 			else {
@@ -246,9 +256,12 @@ void SwitchNMix::process() {
 
 				for(auto n=0;n<BUFFER_SIZE;n++) {
 					// temp is ouput of last stage + raw input
-					tempL[n] = carryOutL[n] + carryInL[n]*fac;
-					tempR[n] = carryOutR[n] + carryInR[n]*fac;
+					tempL[n] = carryOutL(n) + carryInL(-delayTop,n)*fac;
+					tempR[n] = carryOutR(n) + carryInR(-delayTop,n)*fac;
 				}
+
+				delayTop+=1;
+
 				write(outsL[i],tempL.data());
 				write(outsR[i],tempR.data());
 
@@ -258,14 +271,14 @@ void SwitchNMix::process() {
 		}
 		else {
 			for(auto n=0;n<BUFFER_SIZE;n++) {
-				carryOutL[n] += carryInL[n]*fac;
-				carryOutR[n] += carryInR[n]*fac;
+				carryOutL(n) += carryInL(n)*fac;
+				carryOutR(n) += carryInR(n)*fac;
 			}
 		}
 	}
 	for(auto i=0;i<BUFFER_SIZE;i++) {
-		tempL[i]=carryOutL[i]*gain;
-		tempR[i]=carryOutR[i]*gain;
+		tempL[i]=carryOutL(i)*gain;
+		tempR[i]=carryOutR(i)*gain;
 	}
 	write(outL,tempL.data());
 	write(outR,tempR.data());
