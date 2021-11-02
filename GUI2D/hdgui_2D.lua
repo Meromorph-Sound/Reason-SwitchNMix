@@ -17,12 +17,15 @@ local w = {
   jbox.device_name { graphics = {node = "deviceName" }},
   jbox.analog_knob(prop_display('GAIN','')),
   jbox.sequence_meter(prop_display('LEFT_VOL','')),
-  jbox.sequence_meter(prop_display('RIGHT_VOL',''))
+  jbox.sequence_meter(prop_display('RIGHT_VOL','')),
+  jbox.sequence_meter(prop_display('LEFT_OVER','')),
+  jbox.sequence_meter(prop_display('RIGHT_OVER',''))
   }
   
 for N = 1, 4 do
   table.insert(w,jbox.analog_knob(prop_display('DRY_WET',N)))
   table.insert(w,jbox.toggle_button(prop_display('BYPASS',N)))
+  table.insert(w,jbox.toggle_button(prop_display('DELAY',N)))
   table.insert(w,jbox.toggle_button(prop_display('CONNECT',N)))
   table.insert(w,jbox.sequence_meter(prop_display('IN_LEDS',N)))
   table.insert(w,jbox.sequence_meter(prop_display('OUT_LEDS',N)))

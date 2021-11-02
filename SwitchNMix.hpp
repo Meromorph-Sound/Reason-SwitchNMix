@@ -22,12 +22,13 @@ enum Tags : uint32 {
 	LEFT_VOL=2,
 	RIGHT_VOL=3,
 	LEFT_MAX=4,
-	RIFHT_MAX=5,
+	RIGHT_MAX=5,
 	DRY_WET=10,
 	BYPASS=20,
 	CONNECT=30,
 	IN_LEDS=40,
-	OUT_LEDS=50
+	OUT_LEDS=50,
+	DELAY=60
 };
 
 #define N_PORTS 4
@@ -67,6 +68,7 @@ private:
 	Mode outMode;
 
 	std::vector<bool> active;
+	std::vector<bool> delays;
 	std::vector<float32> factor;
 	std::vector<Kind> kind;
 
@@ -87,9 +89,11 @@ private:
 	uint32 chunkCount = 0;
 	float32 rmsL=0;
 	float32 rmsR=0;
+	bool overloadL = false;
+	bool overloadR = false;
 
 
-	static double rms(std::vector<float32> &);
+	static double rms(std::vector<float32> &,bool &);
 	static uint32 read(const port_t,float32 *);
 	static void write(const port_t,float32 *);
 

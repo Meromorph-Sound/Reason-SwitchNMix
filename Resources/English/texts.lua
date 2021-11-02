@@ -13,6 +13,7 @@ texts = {
   
   ['IN_LEDS'] = 'Input',
   ['OUT_LEDS'] = 'Output',
+  ['OVER'] = 'Overload',
   
   ["GAIN"] = "Gain",
   ["GAIN_short"] = "gain",

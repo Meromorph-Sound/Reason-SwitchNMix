@@ -28,6 +28,7 @@ local BASES = {
   ["CONNECT"] = 30,
   ["IN_LEDS"] = 40,
   ["OUT_LEDS"] = 50,
+  ["DELAY"] = 60,
 }
 
 function tagFor(unit,N)  return BASES[unit]+N end
@@ -54,6 +55,13 @@ for N = 1, N_UNITS do
     ui_type = jbox.ui_selector({jbox.UI_TEXT_OFF,jbox.UI_TEXT_ON})
   }
   
+    properties[nameFor('DELAY',N)] = jbox.number {
+      default = 0,
+      steps = 2,
+      ui_name = jbox.ui_text('DELAY'),
+      property_tag = tagFor('DELAY',N),
+      ui_type = jbox.ui_selector({jbox.UI_TEXT_OFF,jbox.UI_TEXT_ON})
+    }
   
     properties[nameFor('CONNECT',N)] = jbox.number {
       default = 0,
@@ -117,6 +125,22 @@ rt_properties['RIGHT_VOL'] = jbox.number {
   property_tag = 3,
   ui_type = linearType()
 }
+
+rt_properties['LEFT_OVER'] = jbox.number {
+      default=0,
+      steps=2,
+      ui_name=jbox.ui_text('OVER'),
+      property_tag=4,
+      ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
+    }
+    
+rt_properties['RIGHT_OVER'] = jbox.number {
+      default=0,
+      steps=2,
+      ui_name=jbox.ui_text('OVER'),
+      property_tag=5,
+      ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
+    }
 
 
 

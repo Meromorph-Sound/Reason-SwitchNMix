@@ -11,7 +11,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    inkscape:export-ydpi="96"
    inkscape:export-xdpi="96"
-   inkscape:export-filename="/Users/julianporter/Reason/SwitchNMix/GUI2D/front1U.png"
+   inkscape:export-filename="/Users/julianporter/Reason/SwitchNMix/GUI2D/Panel_Front_1U.png"
    width="3770px"
    height="345px"
    viewBox="0 0 3770 345"
@@ -124,10 +124,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="2012.3182"
-     inkscape:cy="193.54742"
+     inkscape:cx="2029.4611"
+     inkscape:cy="-323.59544"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:snap-global="false"
@@ -382,49 +382,23 @@
          y="2435.3955"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Gain</tspan></text>
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;image-rendering:auto"
-       x="1358.12"
-       y="296.65994"
-       id="text2933-1-8-9-3-03-9-3-0"><tspan
-         sodipodi:role="line"
-         id="tspan2931-40-7-1-7-9-1-0-9"
-         x="1358.12"
-         y="296.65994"
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Active / bypassed</tspan></text>
-    <text
-       id="text2933-1-8-9-3-03-9-3-0-3"
-       y="299.51709"
-       x="1858.12"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;image-rendering:auto"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
-         y="299.51709"
-         x="1858.12"
-         id="tspan2931-40-7-1-7-9-1-0-9-0"
-         sodipodi:role="line">Active / bypassed</tspan></text>
-    <text
-       id="text2933-1-8-9-3-03-9-3-0-4"
-       y="296.65994"
-       x="2358.1199"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;image-rendering:auto"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
-         y="296.65994"
-         x="2358.1199"
-         id="tspan2931-40-7-1-7-9-1-0-9-4"
-         sodipodi:role="line">Active / bypassed</tspan></text>
-    <text
        id="text2933-1-8-9-3-03-9-3"
-       y="296.66"
-       x="858.12"
-       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       y="275.98001"
+       x="849.67999"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;image-rendering:auto"
        xml:space="preserve"><tspan
+         transform="translate(0,0.33998901)"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
-         y="296.66"
-         x="858.12"
+         y="275.98001"
+         x="849.67999"
          id="tspan2931-40-7-1-7-9-1-0"
-         sodipodi:role="line">Active / bypassed</tspan></text>
+         sodipodi:role="line">Active</tspan><tspan
+         transform="translate(7.3242187e-6,-0.62001099)"
+         id="tspan8410"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         y="315.98001"
+         x="849.67999"
+         sodipodi:role="line">/ thru</tspan></text>
     <text
        id="text2933-1-8-9-9-9"
        y="155.14"
@@ -447,12 +421,110 @@
          x="3096.8799"
          y="215.32001"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Right</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;image-rendering:auto"
+       x="1049.6801"
+       y="292.82001"
+       id="text2933-1-8-9-3-03-9-3-8"><tspan
+         sodipodi:role="line"
+         id="tspan2931-40-7-1-7-9-1-0-0"
+         x="1049.6801"
+         y="292.82001"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Delay</tspan></text>
+    <text
+       xml:space="preserve"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       x="1349.6799"
+       y="275.98001"
+       id="text2933-1-8-9-3-03-9-3-1"><tspan
+         sodipodi:role="line"
+         id="tspan2931-40-7-1-7-9-1-0-9"
+         x="1349.6799"
+         y="275.98001"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         transform="translate(0,0.33998901)">Active</tspan><tspan
+         sodipodi:role="line"
+         x="1349.6799"
+         y="315.98001"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         id="tspan8410-7"
+         transform="translate(7.3242187e-6,-0.62001099)">/ thru</tspan></text>
+    <text
+       id="text2933-1-8-9-3-03-9-3-8-5"
+       y="292.82001"
+       x="1549.6801"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         y="292.82001"
+         x="1549.6801"
+         id="tspan2931-40-7-1-7-9-1-0-0-6"
+         sodipodi:role="line">Delay</tspan></text>
+    <text
+       xml:space="preserve"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       x="1849.6801"
+       y="275.98001"
+       id="text2933-1-8-9-3-03-9-3-82"><tspan
+         sodipodi:role="line"
+         id="tspan2931-40-7-1-7-9-1-0-3"
+         x="1849.6801"
+         y="275.98001"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         transform="translate(0,0.33998901)">Active</tspan><tspan
+         sodipodi:role="line"
+         x="1849.6801"
+         y="315.98001"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         id="tspan8410-8"
+         transform="translate(7.3242187e-6,-0.62001099)">/ thru</tspan></text>
+    <text
+       id="text2933-1-8-9-3-03-9-3-8-3"
+       y="292.82001"
+       x="2049.6799"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         y="292.82001"
+         x="2049.6799"
+         id="tspan2931-40-7-1-7-9-1-0-0-3"
+         sodipodi:role="line">Delay</tspan></text>
+    <text
+       xml:space="preserve"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       x="2349.6799"
+       y="275.98001"
+       id="text2933-1-8-9-3-03-9-3-3"><tspan
+         sodipodi:role="line"
+         id="tspan2931-40-7-1-7-9-1-0-7"
+         x="2349.6799"
+         y="275.98001"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         transform="translate(0,0.33998901)">Active</tspan><tspan
+         sodipodi:role="line"
+         x="2349.6799"
+         y="315.98001"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         id="tspan8410-0"
+         transform="translate(7.3242187e-6,-0.62001099)">/ thru</tspan></text>
+    <text
+       id="text2933-1-8-9-3-03-9-3-8-9"
+       y="292.82001"
+       x="2549.6799"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         y="292.82001"
+         x="2549.6799"
+         id="tspan2931-40-7-1-7-9-1-0-0-39"
+         sodipodi:role="line">Delay</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Controls"
-     style="display:inline;opacity:1">
+     style="display:none;opacity:1">
     <rect
        style="display:inline;opacity:0.81;fill:#ff0000;fill-opacity:0.9;stroke:none;stroke-width:3.77953;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="tape"
@@ -628,33 +700,12 @@
        id="rect6463-7"
        style="display:inline;fill:#ff0000;stroke:none;stroke-linecap:round;stroke-linejoin:round" />
     <rect
-       y="250"
+       y="250.00002"
        x="770"
        height="65"
        width="65"
        id="rect1925-6-3-4-9"
        style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
-    <rect
-       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
-       id="rect1925-6-3-4-9-0"
-       width="65"
-       height="65"
-       x="1270"
-       y="250" />
-    <rect
-       y="252.85715"
-       x="1770"
-       height="65"
-       width="65"
-       id="rect1925-6-3-4-9-0-1"
-       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
-    <rect
-       y="250"
-       x="2270"
-       height="65"
-       width="65"
-       id="rect1925-6-3-4-9-0-7"
-       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
     <rect
        style="display:inline;opacity:1;fill:#ff0000;stroke:none;stroke-width:4.67707;stroke-linecap:round;stroke-linejoin:round"
        id="rect126-5-4-9-2-2"
@@ -673,5 +724,54 @@
        width="40"
        id="rect126-5-4-9-2-2-6"
        style="display:inline;opacity:1;fill:#ff0000;stroke:none;stroke-width:4.67707;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1925-6-3-4-9-4"
+       width="65"
+       height="65"
+       x="970"
+       y="250.00002" />
+    <rect
+       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1925-6-3-4-9-1"
+       width="65"
+       height="65"
+       x="1270"
+       y="250.00002" />
+    <rect
+       y="250.00002"
+       x="1470"
+       height="65"
+       width="65"
+       id="rect1925-6-3-4-9-4-1"
+       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1925-6-3-4-9-0"
+       width="65"
+       height="65"
+       x="1770"
+       y="250.00002" />
+    <rect
+       y="250.00002"
+       x="1970"
+       height="65"
+       width="65"
+       id="rect1925-6-3-4-9-4-8"
+       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
+    <rect
+       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1925-6-3-4-9-3"
+       width="65"
+       height="65"
+       x="2270"
+       y="250.00002" />
+    <rect
+       y="250.00002"
+       x="2470"
+       height="65"
+       width="65"
+       id="rect1925-6-3-4-9-4-86"
+       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
   </g>
 </svg>

@@ -58,7 +58,7 @@ port_t getPort(const char channel,const uint32 N,const bool in) {
 
 
 SwitchNMix::SwitchNMix() : RackExtension(), inMode(Mode::SILENT), outMode(Mode::SILENT),
-		active(NUM_PORTS,false), factor(NUM_PORTS,1.0), kind(NUM_PORTS,Kind::SERIAL),
+		active(NUM_PORTS,false), delays(NUM_PORTS,false), factor(NUM_PORTS,1.0), kind(NUM_PORTS,Kind::SERIAL),
 		carryInL(BUFFER_SIZE,NUM_PORTS,0), carryInR(BUFFER_SIZE,NUM_PORTS,0),
 		carryOutL(BUFFER_SIZE,NUM_PORTS,0), carryOutR(BUFFER_SIZE,NUM_PORTS,0),
 		insL(NUM_PORTS), insR(NUM_PORTS), outsL(NUM_PORTS), outsR(NUM_PORTS),
@@ -93,6 +93,8 @@ void SwitchNMix::reset() {
 	chunkCount=0;
 	rmsL=0;
 	rmsR=0;
+	overloadL=0;
+	overloadR=0;
 }
 
 inline bool isIn(const Tag base,const Tag value) {
@@ -139,6 +141,11 @@ void SwitchNMix::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 			factor[offset]=toFloat(diff.fCurrentValue);
 			trace("DRY/WET ^0 is ^1",offset,factor[offset]);
 		}
+		else if(isIn(Tags::DELAY,tag)) {
+			trace("DELAY");
+			auto offset=offsetFrom(Tags::DELAY,tag);
+			delays[offset]=toBool(diff.fCurrentValue);
+		}
 		else {
 			trace("Another event ^0",tag);
 		}
@@ -174,10 +181,11 @@ bool SwitchNMix::checkModeChangeOut() {
 	return oldMode!=outMode;
 }
 
-double SwitchNMix::rms(std::vector<float32> &buffer) {
+double SwitchNMix::rms(std::vector<float32> &buffer,bool &overload) {
 	auto sum = 0.f;
 	std::for_each(buffer.begin(),buffer.end(),[&sum](auto v) { sum+=v*v; });
 	auto r=sqrt(sum/(float32)BUFFER_SIZE);
+	overload=r>1.f;
 	return std::min(1.f,r);
 }
 
@@ -227,8 +235,6 @@ void SwitchNMix::process() {
 	// TODO: offset is in fact always a multiple of BUFFER_SIZE, so we just have a rotating array of 64-long
 	// buffers.  This makes it much simpler.
 
-	int32 delayTop=0;
-	int32 delayBottom=0;
 	for(auto i=0;i<NUM_PORTS;i++) {
 		auto fac=factor[i];
 		if(active[i]) {
@@ -253,14 +259,13 @@ void SwitchNMix::process() {
 				// input is carryIn; sum, of input and output of previous stage
 				// goes through function to form next stage in
 				// last stage in is outIn; sum is temp
-
+				auto delay = delays[i] ? -i : 0;
 				for(auto n=0;n<BUFFER_SIZE;n++) {
 					// temp is ouput of last stage + raw input
-					tempL[n] = carryOutL(n) + carryInL(-delayTop,n)*fac;
-					tempR[n] = carryOutR(n) + carryInR(-delayTop,n)*fac;
+					tempL[n] = carryOutL(n) + carryInL(delay,n)*fac;
+					tempR[n] = carryOutR(n) + carryInR(delay,n)*fac;
 				}
 
-				delayTop+=1;
 
 				write(outsL[i],tempL.data());
 				write(outsR[i],tempR.data());
@@ -284,12 +289,19 @@ void SwitchNMix::process() {
 	write(outR,tempR.data());
 
 	if(chunkCount==0) {
-		auto lr = rms(tempL);
+		bool overload=false;
+		auto lr = rms(tempL,overload);
 		if(lr!=rmsL) set(lr,Tags::LEFT_VOL);
 		rmsL=lr;
-		auto rr = rms(tempR);
+		if(overload!=overloadL) set(overload,Tags::LEFT_MAX);
+		overloadL=overload;
+
+		overload=false;
+		auto rr = rms(tempR,overload);
 		if(rr!=rmsR) set(rr,Tags::RIGHT_VOL);
 		rmsR=rr;
+		if(overload!=overloadR) set(overload,Tags::RIGHT_MAX);
+		overloadR=overload;
 	}
 	chunkCount=(chunkCount+1) & 0x3;
 

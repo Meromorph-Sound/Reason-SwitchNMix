@@ -9,12 +9,15 @@ front = {
   deviceName = { offset = { 200, 10}, { path = "Tape_Horizontal_1frames", frames = 1 }},
   LEFT_VOL = {offset = {3200, 110 },{ path = "Meter_13frames", frames = 13}},
   RIGHT_VOL = {offset = {3200, 175 },{ path = "Meter_13frames", frames = 13}},
+  LEFT_OVER = { offset = { 3450,120 }, { path = "Lamp_10_RED_2frames", frames = 2}},
+  RIGHT_OVER = { offset = { 3450,185 }, { path = "Lamp_10_RED_2frames", frames = 2}},
   GAIN = { offset = {2800,90}, { path = "Knob_01_63frames", frames = 63}},
 }
 for N = 1, N_UNITS do
   local offset=500*(N-1)
   front['DRY_WET'..N] = { offset = { 770+offset,90 }, { path = "Knob_46_63frames", frames = 63}}
   front['BYPASS'..N] = { offset = { 770+offset,250 }, { path = "Button_53_2frames", frames = 2}}
+  front['DELAY'..N] = { offset = { 970+offset,250 }, { path = "Button_53_2frames", frames = 2}}
   front['CONNECT'..N] = { offset = { 970+offset,100 }, { path = "Mode_Select_2frames", frames = 2}}
   front['IN_LEDS'..N] = { offset = { 970+offset,20 }, { path = "Lamp_10_GREEN_2frames", frames = 2}}
   front['OUT_LEDS'..N] = { offset = { 1075+offset,20 }, { path = "Lamp_10_RED_2frames", frames = 2}}

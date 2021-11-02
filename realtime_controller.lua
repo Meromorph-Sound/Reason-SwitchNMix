@@ -35,7 +35,7 @@ local notes = {
 }
 for N = 1,4 do
   table.insert(notes,"/custom_properties/BYPASS"..N)
-  -- table.insert(notes,"/custom_properties/DELAY"..N)
+  table.insert(notes,"/custom_properties/DELAY"..N)
   table.insert(notes,"/custom_properties/DRY_WET"..N)
   table.insert(notes,"/custom_properties/CONNECT"..N)
   table.insert(notes,"/audio_inputs/AudioInL"..N.."/connected")
