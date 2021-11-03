@@ -44,6 +44,10 @@ end
 folded_front = { 
   Bg = {{ path = "Panel_Folded_Front" }},
   deviceName = { offset = { 2800, 42}, { path = "Tape_Horizontal_1frames", frames = 1 }},
+  LEFT_VOL = {offset = {2400, 10 },{ path = "Meter_13frames", frames = 13}},
+  RIGHT_VOL = {offset = {2400, 80 },{ path = "Meter_13frames", frames = 13}},
+  LEFT_OVER = { offset = { 2650,20 }, { path = "Lamp_10_RED_2frames", frames = 2}},
+  RIGHT_OVER = { offset = { 2650,90 }, { path = "Lamp_10_RED_2frames", frames = 2}},
 }
 folded_back = { 
   Bg = {{ path = "Panel_Folded_Back" }},

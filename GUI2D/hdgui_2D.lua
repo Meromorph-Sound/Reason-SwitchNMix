@@ -62,7 +62,13 @@ back = jbox.panel { graphics = { node = "Bg" }, widgets = bw }
 
 folded_front = jbox.panel { 
   graphics = { node = "Bg" },
-  widgets = { jbox.device_name { graphics = { node = "deviceName" }}}
+  widgets = { 
+    jbox.device_name { graphics = { node = "deviceName" }},
+    jbox.sequence_meter(prop_display('LEFT_VOL','')),
+    jbox.sequence_meter(prop_display('RIGHT_VOL','')),
+    jbox.sequence_meter(prop_display('LEFT_OVER','')),
+    jbox.sequence_meter(prop_display('RIGHT_OVER',''))
+    }
 }
 
 folded_back = jbox.panel { 
